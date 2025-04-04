@@ -1,0 +1,6 @@
+/* Hide YouTube video elements */
+.html5-video-player,
+.ytp-chrome-bottom,
+.ytp-title-link {
+  display: none !important;
+}
