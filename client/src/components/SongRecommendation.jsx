@@ -4,201 +4,768 @@ import NeonText from "./NeonText";
 import "./SongRecommendation.css"; // Ensure this import exists at the top of your component file
 
 // Extensive mood-based song database
-const moodSongs = {
-  happy: [
-    {
-      id: "happy1",
-      title: "Uptown Funk",
-      artist: "Bruno Mars",
-      videoId: "OPf0YbXqDm0",
-      genre: "FUNK",
-    },
-    {
-      id: "happy2",
-      title: "Can't Stop the Feeling",
-      artist: "Justin Timberlake",
-      videoId: "ru0K8uYEZWw",
-      genre: "POP",
-    },
-    {
-      id: "happy3",
-      title: "Happy",
-      artist: "Pharrell Williams",
-      videoId: "ZbZSe6N_BXs",
-      genre: "POP",
-    },
-    {
-      id: "happy4",
-      title: "Dynamite",
-      artist: "BTS",
-      videoId: "gdZLi9oWNZg",
-      genre: "K-POP",
-    },
-    {
-      id: "happy5",
-      title: "Levitating",
-      artist: "Dua Lipa",
-      videoId: "TUVcZfQe-Kw",
-      genre: "POP",
-    },
-    {
-      id: "happy6",
-      title: "Don't Start Now",
-      artist: "Dua Lipa",
-      videoId: "oygrmJFKYZY",
-      genre: "POP",
-    },
-  ],
-  sad: [
-    {
-      id: "sad1",
-      title: "Someone Like You",
-      artist: "Adele",
-      videoId: "hLQl3WQQoQ0",
-      genre: "POP",
-    },
-    {
-      id: "sad2",
-      title: "Fix You",
-      artist: "Coldplay",
-      videoId: "k4V3Mo61fJM",
-      genre: "ROCK",
-    },
-    {
-      id: "sad3",
-      title: "All I Want",
-      artist: "Kodaline",
-      videoId: "vJto6ahp+UY",
-      genre: "INDIE",
-    },
-    {
-      id: "sad4",
-      title: "When I Was Your Man",
-      artist: "Bruno Mars",
-      videoId: "ekzHIouo8Q4",
-      genre: "POP",
-    },
-    {
-      id: "sad5",
-      title: "Say Something",
-      artist: "A Great Big World",
-      videoId: "-2U0Ivkn2Ds",
-      genre: "POP",
-    },
-  ],
-  angry: [
-    {
-      id: "angry1",
-      title: "Break Stuff",
-      artist: "Limp Bizkit",
-      videoId: "XM7sE3g7J4k",
-      genre: "ROCK",
-    },
-    {
-      id: "angry2",
-      title: "Du Hast",
-      artist: "Rammstein",
-      videoId: "W3q8Od5qJio",
-      genre: "METAL",
-    },
-    {
-      id: "angry3",
-      title: "Killing in the Name",
-      artist: "Rage Against the Machine",
-      videoId: "bWXazVhlyxQ",
-      genre: "ROCK",
-    },
-    {
-      id: "angry4",
-      title: "Bodies",
-      artist: "Drowning Pool",
-      videoId: "04F4xlWSFh0",
-      genre: "METAL",
-    },
-    {
-      id: "angry5",
-      title: "Last Resort",
-      artist: "Papa Roach",
-      videoId: "j0lSpNtjPM8",
-      genre: "ROCK",
-    },
-  ],
-  surprised: [
-    {
-      id: "surprised1",
-      title: "Bad Guy",
-      artist: "Billie Eilish",
-      videoId: "DyDfgMOUjCI",
-      genre: "POP",
-    },
-    {
-      id: "surprised2",
-      title: "Thunderstruck",
-      artist: "AC/DC",
-      videoId: "v2AC41dglnM",
-      genre: "ROCK",
-    },
-    {
-      id: "surprised3",
-      title: "Gangnam Style",
-      artist: "PSY",
-      videoId: "9bZkp7q19f0",
-      genre: "K-POP",
-    },
-    {
-      id: "surprised4",
-      title: "Take on Me",
-      artist: "a-ha",
-      videoId: "djV11Xbc914",
-      genre: "POP",
-    },
-    {
-      id: "surprised5",
-      title: "Sweet Dreams",
-      artist: "Eurythmics",
-      videoId: "qeMFqkcPYcg",
-      genre: "POP",
-    },
-  ],
-  neutral: [
-    {
-      id: "neutral1",
-      title: "Blinding Lights",
-      artist: "The Weeknd",
-      videoId: "4NRXx6U8ABQ",
-      genre: "POP",
-    },
-    {
-      id: "neutral2",
-      title: "Shape of You",
-      artist: "Ed Sheeran",
-      videoId: "JGwWNGJdvx8",
-      genre: "POP",
-    },
-    {
-      id: "neutral3",
-      title: "Levitating",
-      artist: "Dua Lipa",
-      videoId: "TUVcZfQe-Kw",
-      genre: "POP",
-    },
-    {
-      id: "neutral4",
-      title: "Watermelon Sugar",
-      artist: "Harry Styles",
-      videoId: "E07s5ZYygMg",
-      genre: "POP",
-    },
-    {
-      id: "neutral5",
-      title: "Stay",
-      artist: "The Kid LAROI, Justin Bieber",
-      videoId: "kTJczUoc26U",
-      genre: "POP",
-    },
-  ],
-};
+  // const moodSongs = {
+  //   happy: [
+  //     {
+  //       id: "happy1",
+  //       title: "Uptown Funk",
+  //       artist: "Bruno Mars",
+  //       videoId: "OPf0YbXqDm0",
+  //       genre: "FUNK",
+  //     },
+  //     {
+  //       id: "happy2",
+  //       title: "Can't Stop the Feeling",
+  //       artist: "Justin Timberlake",
+  //       videoId: "ru0K8uYEZWw",
+  //       genre: "POP",
+  //     },
+  //     {
+  //       id: "happy3",
+  //       title: "Happy",
+  //       artist: "Pharrell Williams",
+  //       videoId: "ZbZSe6N_BXs",
+  //       genre: "POP",
+  //     },
+  //     {
+  //       id: "happy4",
+  //       title: "Dynamite",
+  //       artist: "BTS",
+  //       videoId: "gdZLi9oWNZg",
+  //       genre: "K-POP",
+  //     },
+  //     {
+  //       id: "happy5",
+  //       title: "Levitating",
+  //       artist: "Dua Lipa",
+  //       videoId: "TUVcZfQe-Kw",
+  //       genre: "POP",
+  //     },
+  //     {
+  //       id: "happy6",
+  //       title: "Don't Start Now",
+  //       artist: "Dua Lipa",
+  //       videoId: "oygrmJFKYZY",
+  //       genre: "POP",
+  //     },
+  //   ],
+  //   sad: [
+  //     {
+  //       id: "sad1",
+  //       title: "Someone Like You",
+  //       artist: "Adele",
+  //       videoId: "hLQl3WQQoQ0",
+  //       genre: "POP",
+  //     },
+  //     {
+  //       id: "sad2",
+  //       title: "Fix You",
+  //       artist: "Coldplay",
+  //       videoId: "k4V3Mo61fJM",
+  //       genre: "ROCK",
+  //     },
+  //     {
+  //       id: "sad3",
+  //       title: "All I Want",
+  //       artist: "Kodaline",
+  //       videoId: "vJto6ahp+UY",
+  //       genre: "INDIE",
+  //     },
+  //     {
+  //       id: "sad4",
+  //       title: "When I Was Your Man",
+  //       artist: "Bruno Mars",
+  //       videoId: "ekzHIouo8Q4",
+  //       genre: "POP",
+  //     },
+  //     {
+  //       id: "sad5",
+  //       title: "Say Something",
+  //       artist: "A Great Big World",
+  //       videoId: "-2U0Ivkn2Ds",
+  //       genre: "POP",
+  //     },
+  //   ],
+  //   angry: [
+  //     {
+  //       id: "angry1",
+  //       title: "Break Stuff",
+  //       artist: "Limp Bizkit",
+  //       videoId: "XM7sE3g7J4k",
+  //       genre: "ROCK",
+  //     },
+  //     {
+  //       id: "angry2",
+  //       title: "Du Hast",
+  //       artist: "Rammstein",
+  //       videoId: "W3q8Od5qJio",
+  //       genre: "METAL",
+  //     },
+  //     {
+  //       id: "angry3",
+  //       title: "Killing in the Name",
+  //       artist: "Rage Against the Machine",
+  //       videoId: "bWXazVhlyxQ",
+  //       genre: "ROCK",
+  //     },
+  //     {
+  //       id: "angry4",
+  //       title: "Bodies",
+  //       artist: "Drowning Pool",
+  //       videoId: "04F4xlWSFh0",
+  //       genre: "METAL",
+  //     },
+  //     {
+  //       id: "angry5",
+  //       title: "Last Resort",
+  //       artist: "Papa Roach",
+  //       videoId: "j0lSpNtjPM8",
+  //       genre: "ROCK",
+  //     },
+  //   ],
+  //   surprised: [
+  //     {
+  //       id: "surprised1",
+  //       title: "Bad Guy",
+  //       artist: "Billie Eilish",
+  //       videoId: "DyDfgMOUjCI",
+  //       genre: "POP",
+  //     },
+  //     {
+  //       id: "surprised2",
+  //       title: "Thunderstruck",
+  //       artist: "AC/DC",
+  //       videoId: "v2AC41dglnM",
+  //       genre: "ROCK",
+  //     },
+  //     {
+  //       id: "surprised3",
+  //       title: "Gangnam Style",
+  //       artist: "PSY",
+  //       videoId: "9bZkp7q19f0",
+  //       genre: "K-POP",
+  //     },
+  //     {
+  //       id: "surprised4",
+  //       title: "Take on Me",
+  //       artist: "a-ha",
+  //       videoId: "djV11Xbc914",
+  //       genre: "POP",
+  //     },
+  //     {
+  //       id: "surprised5",
+  //       title: "Sweet Dreams",
+  //       artist: "Eurythmics",
+  //       videoId: "qeMFqkcPYcg",
+  //       genre: "POP",
+  //     },
+  //   ],
+  //   neutral: [
+  //     {
+  //       id: "neutral1",
+  //       title: "Blinding Lights",
+  //       artist: "The Weeknd",
+  //       videoId: "4NRXx6U8ABQ",
+  //       genre: "POP",
+  //     },
+  //     {
+  //       id: "neutral2",
+  //       title: "Shape of You",
+  //       artist: "Ed Sheeran",
+  //       videoId: "JGwWNGJdvx8",
+  //       genre: "POP",
+  //     },
+  //     {
+  //       id: "neutral3",
+  //       title: "Levitating",
+  //       artist: "Dua Lipa",
+  //       videoId: "TUVcZfQe-Kw",
+  //       genre: "POP",
+  //     },
+  //     {
+  //       id: "neutral4",
+  //       title: "Watermelon Sugar",
+  //       artist: "Harry Styles",
+  //       videoId: "E07s5ZYygMg",
+  //       genre: "POP",
+  //     },
+  //     {
+  //       id: "neutral5",
+  //       title: "Stay",
+  //       artist: "The Kid LAROI, Justin Bieber",
+  //       videoId: "kTJczUoc26U",
+  //       genre: "POP",
+  //     },
+  //   ],
+  // };
 
+  const moodSongs = {
+    happy: {
+      english: [
+        {
+          id: "happy1_en",
+          title: "Uptown Funk",
+          artist: "Bruno Mars",
+          videoId: "OPf0YbXqDm0",
+          genre: "Funk"
+        },
+        {
+          id: "happy2_en",
+          title: "Can't Stop the Feeling",
+          artist: "Justin Timberlake",
+          videoId: "ru0K8uYEZWw",
+          genre: "Pop"
+        },
+        {
+          id: "happy3_en",
+          title: "Happy",
+          artist: "Pharrell Williams",
+          videoId: "ZbZSe6N_BXs",
+          genre: "Pop"
+        },
+        {
+          id: "happy4_en",
+          title: "Dynamite",
+          artist: "BTS",
+          videoId: "gdZLi9oWNZg",
+          genre: "K-Pop"
+        },
+        {
+          id: "happy5_en",
+          title: "Levitating",
+          artist: "Dua Lipa",
+          videoId: "TUVcZfQe-Kw",
+          genre: "Pop"
+        }
+      ],
+      tamil: [
+        {
+          id: "happy1_ta",
+          title: "Vaathi Coming",
+          artist: "Anirudh Ravichander",
+          videoId: "wKzYEQH6X_c",
+          genre: "Film Music"
+        },
+        {
+          id: "happy2_ta",
+          title: "Enjoy Enjaami",
+          artist: "Dhee, Arivu",
+          videoId: "eT9i0N8lD6w",
+          genre: "Folk Fusion"
+        },
+        {
+          id: "happy3_ta",
+          title: "Jalabulajangu",
+          artist: "Anirudh Ravichander",
+          videoId: "8PkRbA0QwQU",
+          genre: "Film Music"
+        },
+        {
+          id: "happy4_ta",
+          title: "Rowdy Baby",
+          artist: "Yuvan Shankar Raja",
+          videoId: "1prRKMlGFoI",
+          genre: "Film Music"
+        },
+        {
+          id: "happy5_ta",
+          title: "Why This Kolaveri Di",
+          artist: "Dhanush",
+          videoId: "YR12Z8f1Dh8",
+          genre: "Pop"
+        }
+      ],
+      hindi: [
+        {
+          id: "happy1_hi",
+          title: "Badtameez Dil",
+          artist: "Benny Dayal",
+          videoId: "w5ZW5uZ2JjQ",
+          genre: "Film Music"
+        },
+        {
+          id: "happy2_hi",
+          title: "Gallan Goodiyaan",
+          artist: "Various Artists",
+          videoId: "9UQpvoBA6gI",
+          genre: "Film Music"
+        },
+        {
+          id: "happy3_hi",
+          title: "Balam Pichkari",
+          artist: "Vishal Dadlani",
+          videoId: "9D_P7BbqW5Y",
+          genre: "Film Music"
+        },
+        {
+          id: "happy4_hi",
+          title: "Kar Gayi Chull",
+          artist: "Badshah",
+          videoId: "SbGwCb6D8Q0",
+          genre: "Film Music"
+        },
+        {
+          id: "happy5_hi",
+          title: "Lungi Dance",
+          artist: "Yo Yo Honey Singh",
+          videoId: "dxytyRy-O1k",
+          genre: "Film Music"
+        }
+      ]
+    },
+    sad: {
+      english: [
+        {
+          id: "sad1_en",
+          title: "Someone Like You",
+          artist: "Adele",
+          videoId: "hLQl3WQQoQ0",
+          genre: "Pop"
+        },
+        {
+          id: "sad2_en",
+          title: "Fix You",
+          artist: "Coldplay",
+          videoId: "k4V3Mo61fJM",
+          genre: "Rock"
+        },
+        {
+          id: "sad3_en",
+          title: "All I Want",
+          artist: "Kodaline",
+          videoId: "vJto6ahp+UY",
+          genre: "Indie"
+        },
+        {
+          id: "sad4_en",
+          title: "When I Was Your Man",
+          artist: "Bruno Mars",
+          videoId: "ekzHIouo8Q4",
+          genre: "Pop"
+        },
+        {
+          id: "sad5_en",
+          title: "Say Something",
+          artist: "A Great Big World",
+          videoId: "-2U0Ivkn2Ds",
+          genre: "Pop"
+        }
+      ],
+      tamil: [
+        {
+          id: "sad1_ta",
+          title: "Vizhiyil Vizhundhu",
+          artist: "Hariharan",
+          videoId: "Y3ZR8Qn6JY8",
+          genre: "Film Music"
+        },
+        {
+          id: "sad2_ta",
+          title: "Munbe Vaa",
+          artist: "Shreya Ghoshal",
+          videoId: "4q5bVCf6hW4",
+          genre: "Film Music"
+        },
+        {
+          id: "sad3_ta",
+          title: "Avalukenna",
+          artist: "Sid Sriram",
+          videoId: "y0X8Vz5B3kE",
+          genre: "Film Music"
+        },
+        {
+          id: "sad4_ta",
+          title: "En Kadhal Solla",
+          artist: "Yuvan Shankar Raja",
+          videoId: "ZvGxZQp0Q2w",
+          genre: "Film Music"
+        },
+        {
+          id: "sad5_ta",
+          title: "Kannukkul Pothivaippen",
+          artist: "Hariharan",
+          videoId: "9QZQbZQZQZQ",
+          genre: "Film Music"
+        }
+      ],
+      hindi: [
+        {
+          id: "sad1_hi",
+          title: "Tum Hi Ho",
+          artist: "Arijit Singh",
+          videoId: "7Htz9Y4H-8w",
+          genre: "Film Music"
+        },
+        {
+          id: "sad2_hi",
+          title: "Channa Mereya",
+          artist: "Arijit Singh",
+          videoId: "G1d4Qb0l6i4",
+          genre: "Film Music"
+        },
+        {
+          id: "sad3_hi",
+          title: "Teri Mitti",
+          artist: "B Praak",
+          videoId: "wF_B_aagLfI",
+          genre: "Film Music"
+        },
+        {
+          id: "sad4_hi",
+          title: "Agar Tum Saath Ho",
+          artist: "Alka Yagnik",
+          videoId: "6FURuLYrR_Q",
+          genre: "Film Music"
+        },
+        {
+          id: "sad5_hi",
+          title: "Kal Ho Naa Ho",
+          artist: "Sonu Nigam",
+          videoId: "Y9nR1hY9lLM",
+          genre: "Film Music"
+        }
+      ]
+    },
+    angry: {
+      english: [
+        {
+          id: "angry1_en",
+          title: "Break Stuff",
+          artist: "Limp Bizkit",
+          videoId: "XM7sE3g7J4k",
+          genre: "Rock"
+        },
+        {
+          id: "angry2_en",
+          title: "Du Hast",
+          artist: "Rammstein",
+          videoId: "W3q8Od5qJio",
+          genre: "Metal"
+        },
+        {
+          id: "angry3_en",
+          title: "Killing in the Name",
+          artist: "Rage Against the Machine",
+          videoId: "bWXazVhlyxQ",
+          genre: "Rock"
+        },
+        {
+          id: "angry4_en",
+          title: "Bodies",
+          artist: "Drowning Pool",
+          videoId: "04F4xlWSFh0",
+          genre: "Metal"
+        },
+        {
+          id: "angry5_en",
+          title: "Last Resort",
+          artist: "Papa Roach",
+          videoId: "j0lSpNtjPM8",
+          genre: "Rock"
+        }
+      ],
+      tamil: [
+        {
+          id: "angry1_ta",
+          title: "Thee Thalapathy",
+          artist: "Anirudh Ravichander",
+          videoId: "5QfG7Xl8X4k",
+          genre: "Film Music"
+        },
+        {
+          id: "angry2_ta",
+          title: "Petta Paraak",
+          artist: "Anirudh Ravichander",
+          videoId: "1y6smk6qpo0",
+          genre: "Film Music"
+        },
+        {
+          id: "angry3_ta",
+          title: "Beast Mode",
+          artist: "Anirudh Ravichander",
+          videoId: "5QfG7Xl8X4k",
+          genre: "Film Music"
+        },
+        {
+          id: "angry4_ta",
+          title: "Vikram Title Track",
+          artist: "Anirudh Ravichander",
+          videoId: "5QfG7Xl8X4k",
+          genre: "Film Music"
+        },
+        {
+          id: "angry5_ta",
+          title: "Kutti Story",
+          artist: "Anirudh Ravichander",
+          videoId: "5QfG7Xl8X4k",
+          genre: "Film Music"
+        }
+      ],
+      hindi: [
+        {
+          id: "angry1_hi",
+          title: "Dangal",
+          artist: "Daler Mehndi",
+          videoId: "xQOO2xGQ1Pc",
+          genre: "Film Music"
+        },
+        {
+          id: "angry2_hi",
+          title: "Kar Har Maidan Fateh",
+          artist: "Sukhwinder Singh",
+          videoId: "sY9H5ZtJMBE",
+          genre: "Film Music"
+        },
+        {
+          id: "angry3_hi",
+          title: "Brothers Anthem",
+          artist: "Vishal Dadlani",
+          videoId: "5QfG7Xl8X4k",
+          genre: "Film Music"
+        },
+        {
+          id: "angry4_hi",
+          title: "Singham Theme",
+          artist: "Ajay-Atul",
+          videoId: "5QfG7Xl8X4k",
+          genre: "Film Music"
+        },
+        {
+          id: "angry5_hi",
+          title: "Malhari",
+          artist: "Vishal Dadlani",
+          videoId: "5QfG7Xl8X4k",
+          genre: "Film Music"
+        }
+      ]
+    },
+    surprised: {
+      english: [
+        {
+          id: "surprised1_en",
+          title: "Bad Guy",
+          artist: "Billie Eilish",
+          videoId: "DyDfgMOUjCI",
+          genre: "Pop"
+        },
+        {
+          id: "surprised2_en",
+          title: "Thunderstruck",
+          artist: "AC/DC",
+          videoId: "v2AC41dglnM",
+          genre: "Rock"
+        },
+        {
+          id: "surprised3_en",
+          title: "Gangnam Style",
+          artist: "PSY",
+          videoId: "9bZkp7q19f0",
+          genre: "K-Pop"
+        },
+        {
+          id: "surprised4_en",
+          title: "Take on Me",
+          artist: "a-ha",
+          videoId: "djV11Xbc914",
+          genre: "Pop"
+        },
+        {
+          id: "surprised5_en",
+          title: "Sweet Dreams",
+          artist: "Eurythmics",
+          videoId: "qeMFqkcPYcg",
+          genre: "Pop"
+        }
+      ],
+      tamil: [
+        {
+          id: "surprised1_ta",
+          title: "Why This Kolaveri Di",
+          artist: "Dhanush",
+          videoId: "YR12Z8f1Dh8",
+          genre: "Pop"
+        },
+        {
+          id: "surprised2_ta",
+          title: "Kutty Story",
+          artist: "Anirudh Ravichander",
+          videoId: "5QfG7Xl8X4k",
+          genre: "Film Music"
+        },
+        {
+          id: "surprised3_ta",
+          title: "Vaathi Kabaddi",
+          artist: "Anirudh Ravichander",
+          videoId: "5QfG7Xl8X4k",
+          genre: "Film Music"
+        },
+        {
+          id: "surprised4_ta",
+          title: "Kutti Puli",
+          artist: "Anirudh Ravichander",
+          videoId: "5QfG7Xl8X4k",
+          genre: "Film Music"
+        },
+        {
+          id: "surprised5_ta",
+          title: "Master the Blaster",
+          artist: "Anirudh Ravichander",
+          videoId: "5QfG7Xl8X4k",
+          genre: "Film Music"
+        }
+      ],
+      hindi: [
+        {
+          id: "surprised1_hi",
+          title: "Bom Diggy Diggy",
+          artist: "Zack Knight",
+          videoId: "5QfG7Xl8X4k",
+          genre: "Pop"
+        },
+        {
+          id: "surprised2_hi",
+          title: "Tunak Tunak Tun",
+          artist: "Daler Mehndi",
+          videoId: "5QfG7Xl8X4k",
+          genre: "Pop"
+        },
+        {
+          id: "surprised3_hi",
+          title: "Mundian To Bach Ke",
+          artist: "Panjabi MC",
+          videoId: "5QfG7Xl8X4k",
+          genre: "Pop"
+        },
+        {
+          id: "surprised4_hi",
+          title: "Jai Ho",
+          artist: "A.R. Rahman",
+          videoId: "5QfG7Xl8X4k",
+          genre: "Film Music"
+        },
+        {
+          id: "surprised5_hi",
+          title: "Chaiyya Chaiyya",
+          artist: "Sukhwinder Singh",
+          videoId: "5QfG7Xl8X4k",
+          genre: "Film Music"
+        }
+      ]
+    },
+    neutral: {
+      english: [
+        {
+          id: "neutral1_en",
+          title: "Blinding Lights",
+          artist: "The Weeknd",
+          videoId: "4NRXx6U8ABQ",
+          genre: "Pop"
+        },
+        {
+          id: "neutral2_en",
+          title: "Shape of You",
+          artist: "Ed Sheeran",
+          videoId: "JGwWNGJdvx8",
+          genre: "Pop"
+        },
+        {
+          id: "neutral3_en",
+          title: "Levitating",
+          artist: "Dua Lipa",
+          videoId: "TUVcZfQe-Kw",
+          genre: "Pop"
+        },
+        {
+          id: "neutral4_en",
+          title: "Watermelon Sugar",
+          artist: "Harry Styles",
+          videoId: "E07s5ZYygMg",
+          genre: "Pop"
+        },
+        {
+          id: "neutral5_en",
+          title: "Stay",
+          artist: "The Kid LAROI, Justin Bieber",
+          videoId: "kTJczUoc26U",
+          genre: "Pop"
+        }
+      ],
+      tamil: [
+        {
+          id: "neutral1_ta",
+          title: "Kannazhaga",
+          artist: "Anirudh Ravichander",
+          videoId: "5QfG7Xl8X4k",
+          genre: "Film Music"
+        },
+        {
+          id: "neutral2_ta",
+          title: "Mental Manadhil",
+          artist: "A.R. Rahman",
+          videoId: "5QfG7Xl8X4k",
+          genre: "Film Music"
+        },
+        {
+          id: "neutral3_ta",
+          title: "Maruvaarthai",
+          artist: "Sid Sriram",
+          videoId: "5QfG7Xl8X4k",
+          genre: "Film Music"
+        },
+        {
+          id: "neutral4_ta",
+          title: "Kadhal Psycho",
+          artist: "Anirudh Ravichander",
+          videoId: "5QfG7Xl8X4k",
+          genre: "Film Music"
+        },
+        {
+          id: "neutral5_ta",
+          title: "Kadhal Cricket",
+          artist: "Anirudh Ravichander",
+          videoId: "5QfG7Xl8X4k",
+          genre: "Film Music"
+        }
+      ],
+      hindi: [
+        {
+          id: "neutral1_hi",
+          title: "Pasoori Nu",
+          artist: "Arijit Singh",
+          videoId: "5QfG7Xl8X4k",
+          genre: "Film Music"
+        },
+        {
+          id: "neutral2_hi",
+          title: "Kesariya",
+          artist: "Arijit Singh",
+          videoId: "5QfG7Xl8X4k",
+          genre: "Film Music"
+        },
+        {
+          id: "neutral3_hi",
+          title: "Raatan Lambiyan",
+          artist: "Jubin Nautiyal",
+          videoId: "5QfG7Xl8X4k",
+          genre: "Film Music"
+        },
+        {
+          id: "neutral4_hi",
+          title: "Tum Hi Aana",
+          artist: "Jubin Nautiyal",
+          videoId: "5QfG7Xl8X4k",
+          genre: "Film Music"
+        },
+        {
+          id: "neutral5_hi",
+          title: "Tere Vaaste",
+          artist: "Vishal Mishra",
+          videoId: "5QfG7Xl8X4k",
+          genre: "Film Music"
+        }
+      ]
+    }
+  };
 const SongRecommendation = ({ age, gender, emotion }) => {
   const [nowPlaying, setNowPlaying] = useState(null);
   const [recommendations, setRecommendations] = useState([]);
