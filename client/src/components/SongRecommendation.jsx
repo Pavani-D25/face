@@ -772,36 +772,77 @@ const SongRecommendation = ({ age, gender, emotion }) => {
   const [loading, setLoading] = useState(true);
 
   // Memoized recommendation function
+  // const getRandomRecommendations = useCallback(() => {
+  //   setLoading(true);
+
+  //   const emotionTracks = moodSongs[emotion.toLowerCase()] || moodSongs.neutral;
+  //   let filteredTracks = [...emotionTracks];
+
+  //   // Age-based filtering
+  //   if (age < 18) {
+  //     filteredTracks = filteredTracks.filter(
+  //       (song) => !["METAL", "ROCK"].includes(song.genre)
+  //     );
+  //   } else if (age > 40) {
+  //     filteredTracks = filteredTracks.filter(
+  //       (song) => !["K-POP", "METAL"].includes(song.genre)
+  //     );
+  //   }
+
+  //   // Gender-based filtering
+  //   if (gender.toLowerCase().includes("female")) {
+  //     filteredTracks = filteredTracks.filter(
+  //       (song) => !song.title.includes("Break Stuff")
+  //     );
+  //   }
+
+  //   // Shuffle and pick 3 random songs
+  //   const shuffled = [...filteredTracks].sort(() => 0.5 - Math.random());
+  //   setRecommendations(shuffled.slice(0, 3));
+  //   setLoading(false);
+  // }, [age, gender, emotion]);
+
+
+
   const getRandomRecommendations = useCallback(() => {
     setLoading(true);
-
+  
     const emotionTracks = moodSongs[emotion.toLowerCase()] || moodSongs.neutral;
-    let filteredTracks = [...emotionTracks];
-
+    
+    // Combine all language tracks into one array
+    let allTracks = [];
+    for (const language in emotionTracks) {
+      allTracks = [...allTracks, ...emotionTracks[language]];
+    }
+  
+    let filteredTracks = [...allTracks];
+  
     // Age-based filtering
     if (age < 18) {
       filteredTracks = filteredTracks.filter(
-        (song) => !["METAL", "ROCK"].includes(song.genre)
+        (song) => !["METAL", "ROCK"].includes(song.genre.toUpperCase())
       );
     } else if (age > 40) {
       filteredTracks = filteredTracks.filter(
-        (song) => !["K-POP", "METAL"].includes(song.genre)
+        (song) => !["K-POP", "METAL"].includes(song.genre.toUpperCase())
       );
     }
-
+  
     // Gender-based filtering
     if (gender.toLowerCase().includes("female")) {
       filteredTracks = filteredTracks.filter(
-        (song) => !song.title.includes("Break Stuff")
+        (song) => !song.title.toLowerCase().includes("break stuff")
       );
     }
-
+  
     // Shuffle and pick 3 random songs
     const shuffled = [...filteredTracks].sort(() => 0.5 - Math.random());
     setRecommendations(shuffled.slice(0, 3));
     setLoading(false);
   }, [age, gender, emotion]);
 
+
+  
   // Initial load and when dependencies change
   useEffect(() => {
     getRandomRecommendations();
@@ -909,3 +950,6 @@ const SongRecommendation = ({ age, gender, emotion }) => {
 };
 
 export default SongRecommendation;
+
+
+
