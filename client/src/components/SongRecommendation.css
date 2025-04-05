@@ -6,6 +6,7 @@
     margin-top: 2rem;
     border: 1px solid rgba(138, 43, 226, 0.3);
     min-height: 400px;
+    z-index: 100;
   }
   
   .recommendation-header {
@@ -75,7 +76,7 @@
   }
   
   .song-card {
-    background: rgba(40, 30, 70, 0.5);
+    background: rgba(11, 119, 149, 0.5);
     border-radius: 8px;
     padding: 1.2rem;
     transition: all 0.3s ease;
@@ -132,7 +133,6 @@
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(138, 43, 226, 0.3);
   }
-  
   .audio-player {
     position: fixed;
     bottom: -100px;
@@ -144,16 +144,33 @@
     transition: bottom 0.3s ease;
     z-index: 100;
     border-top: 1px solid rgba(138, 43, 226, 0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
   
   .audio-player.visible {
     bottom: 0;
   }
   
-  .audio-player iframe {
-    width: 300px;
-    height: 60px;
+  .close-player {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    background: transparent;
     border: none;
-    border-radius: 30px;
-    margin: 0 auto;
+    color: #8a2be2;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  .close-player:hover {
+    color: #00ffff;
+    transform: scale(1.2);
+  }
+  
+  .player-container {
+    position: relative;
+    margin-top: 10px;
   }

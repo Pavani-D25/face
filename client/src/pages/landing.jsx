@@ -106,10 +106,14 @@ const SplineLandingPage = () => {
         <div>Error loading Spline scene. Please try again later.</div>
       ) : (
         <>
-          <Spline
+          {/* <Spline
             scene="https://prod.spline.design/3PEz9sGaJpy-GkLG/scene.splinecode"
             onError={() => setError(true)}
           />
+           */}
+
+{/* <Spline scene="https://prod.spline.design/3PEz9sGaJpy-GkLG/scene.splinecode" /> */}
+<Spline scene={`https://prod.spline.design/3PEz9sGaJpy-GkLG/scene.splinecode?t=${Date.now()}`} />
           {showButton && (
             <div style={buttonContainerStyle}>
               <NeumorphismButton 

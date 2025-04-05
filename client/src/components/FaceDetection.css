@@ -1,16 +1,4 @@
-/* body {
-    margin: 0;
-    padding: 0;
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
 
-canvas {
-    position: absolute;
-} */
 
 
 
@@ -18,7 +6,7 @@ canvas {
 .face-detection-container {
     display: flex;
     height: 100vh;
-    width: 100vw;
+    width: 95vw;
     background-color: #0a0a12;
     color: white;
     font-family: 'Segoe UI', sans-serif;
