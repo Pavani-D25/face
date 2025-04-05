@@ -113,7 +113,7 @@ const SplineLandingPage = () => {
            */}
 
 {/* <Spline scene="https://prod.spline.design/3PEz9sGaJpy-GkLG/scene.splinecode" /> */}
-<Spline scene={`https://prod.spline.design/3PEz9sGaJpy-GkLG/scene.splinecode?t=${Date.now()}`} />
+<Spline scene={`https://prod.spline.design/rCJXH0ntsHinyMb7/scene.splinecode?t=${Date.now()}`} />
           {showButton && (
             <div style={buttonContainerStyle}>
               <NeumorphismButton 
@@ -153,3 +153,6 @@ const buttonStyle = {
 };
 
 export default SplineLandingPage;
+
+
+
