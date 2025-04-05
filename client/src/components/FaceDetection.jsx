@@ -1155,6 +1155,267 @@
 
 
 
+// import { useState, useRef, useEffect } from 'react';
+// import * as faceapi from 'face-api.js';
+// import SongRecommendation from './SongRecommendation';
+// import './FaceDetection.css';
+
+// const FaceDetection = ({ onClose }) => {
+//   const videoRef = useRef(null);
+//   const canvasRef = useRef(null);
+//   const [detections, setDetections] = useState(null);
+//   const [capturedData, setCapturedData] = useState(null);
+//   const [isModelsLoading, setIsModelsLoading] = useState(true);
+//   const [scanProgress, setScanProgress] = useState(0);
+
+//   useEffect(() => {
+//     const loadModels = async () => {
+//       try {
+//         const MODEL_URL = `${import.meta.env.BASE_URL}models`;
+//         await Promise.all([
+//           faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL),
+//           faceapi.nets.faceLandmark68Net.loadFromUri(MODEL_URL),
+//           faceapi.nets.faceRecognitionNet.loadFromUri(MODEL_URL),
+//           faceapi.nets.faceExpressionNet.loadFromUri(MODEL_URL),
+//           faceapi.nets.ageGenderNet.loadFromUri(MODEL_URL)
+//         ]);
+//         startVideo();
+//         setIsModelsLoading(false);
+//       } catch (error) {
+//         console.error("Model loading error:", error);
+//       }
+//     };
+
+//     const startVideo = () => {
+//       navigator.mediaDevices.getUserMedia({ video: true })
+//         .then(stream => {
+//           videoRef.current.srcObject = stream;
+//           // Simulate loading progress
+//           const interval = setInterval(() => {
+//             setScanProgress(prev => (prev >= 100 ? 100 : prev + 10));
+//             if (scanProgress >= 100) clearInterval(interval);
+//           }, 200);
+//         })
+//         .catch(err => console.error("Camera error:", err));
+//     };
+
+//     const detectFaces = async () => {
+//       if (!videoRef.current || isModelsLoading) return;
+
+//       const results = await faceapi
+//         .detectAllFaces(videoRef.current, new faceapi.TinyFaceDetectorOptions())
+//         .withFaceLandmarks()
+//         .withFaceExpressions()
+//         .withAgeAndGender();
+
+//       setDetections(results);
+//       updateCanvas(results);
+//     };
+
+//     const updateCanvas = (results) => {
+//       const video = videoRef.current;
+//       const canvas = canvasRef.current;
+//       const displaySize = { width: video.width, height: video.height };
+      
+//       faceapi.matchDimensions(canvas, displaySize);
+//       const resizedDetections = faceapi.resizeResults(results, displaySize);
+      
+//       const ctx = canvas.getContext('2d');
+//       ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+//       // Draw detections with custom styling
+//       faceapi.draw.drawDetections(canvas, resizedDetections, {
+//         lineWidth: 2,
+//         boxColor: '#00ffff',
+//         textColor: '#00ffff'
+//       });
+      
+//       faceapi.draw.drawFaceLandmarks(canvas, resizedDetections, {
+//         lineWidth: 1,
+//         color: '#8a2be2'
+//       });
+      
+//       faceapi.draw.drawFaceExpressions(canvas, resizedDetections, 0.05, {
+//         fontSize: 16,
+//         fontStyle: 'bold'
+//       });
+//     };
+
+//     loadModels();
+//     const detectionInterval = setInterval(detectFaces, 100);
+
+//     return () => {
+//       clearInterval(detectionInterval);
+//       if (videoRef.current?.srcObject) {
+//         videoRef.current.srcObject.getTracks().forEach(track => track.stop());
+//       }
+//     };
+//   }, [isModelsLoading, scanProgress]);
+
+//   const handleCapture = () => {
+//     if (detections?.[0]) {
+//       const { age, gender, expressions } = detections[0];
+//       setCapturedData({
+//         age: Math.round(age),
+//         gender,
+//         emotion: Object.entries(expressions)
+//           .sort((a, b) => b[1] - a[1])[0][0],
+//         timestamp: new Date().toLocaleTimeString()
+//       });
+//     }
+//   };
+
+//   return (
+//     <div className="face-detection-container">
+//       {/* Left Panel - Camera Feed */}
+//       <div className="camera-panel">
+//         <div className="video-container">
+//           <video 
+//             ref={videoRef} 
+//             className="video-feed"
+//             autoPlay 
+//             muted
+//           />
+//           <canvas 
+//             ref={canvasRef} 
+//             className="detection-canvas"
+//           />
+          
+//           {isModelsLoading && (
+//             <div className="loading-overlay">
+//               <div className="loading-spinner"></div>
+//               <div className="loading-text">Loading AI Models... {scanProgress}%</div>
+//               <div className="progress-bar">
+//                 <div 
+//                   className="progress-fill" 
+//                   style={{ width: `${scanProgress}%` }}
+//                 ></div>
+//               </div>
+//             </div>
+//           )}
+//         </div>
+        
+//         <div className="control-buttons">
+//           <button className="close-button" onClick={onClose}>
+//             Close Scanner
+//           </button>
+//           <button 
+//             className={`capture-button ${!detections ? 'disabled' : ''}`}
+//             onClick={handleCapture}
+//             disabled={!detections}
+//           >
+//             Capture Analysis
+//           </button>
+//         </div>
+//       </div>
+      
+//       {/* Right Panel - Results */}
+//       {/* <div className="results-panel">
+//         <h3 className="results-title">CAPTURE RESULTS</h3>
+        
+//         {capturedData ? (
+//           <div className="results-container">
+//             <div className="result-card">
+//               <div className="result-label">Age</div>
+//               <div className="result-value">{capturedData.age}</div>
+//             </div>
+//             <div className="result-card">
+//               <div className="result-label">Gender</div>
+//               <div className="result-value">{capturedData.gender}</div>
+//             </div>
+//             <div className="result-card">
+//               <div className="result-label">Emotion</div>
+//               <div className="result-value">{capturedData.emotion}</div>
+//             </div>
+//             <div className="result-card">
+//               <div className="result-label">Timestamp</div>
+//               <div className="result-value">{capturedData.timestamp}</div>
+//             </div>
+            
+//             <button 
+//               className="clear-button"
+//               onClick={() => setCapturedData(null)}
+//             >
+//               Clear Results
+//             </button>
+//           </div>
+//         ) : (
+//           <div className="empty-results">
+//             No capture results yet. Click "Capture" to analyze current frame.
+//           </div>
+//         )}
+//       </div> */}
+
+
+// <div className="results-panel">
+//   <h3 className="results-title">CAPTURE RESULTS</h3>
+  
+//   {capturedData ? (
+//     <div className="results-container">
+//       {/* Existing Results Cards */}
+//       <div className="result-card">
+//         <div className="result-label">Age</div>
+//         <div className="result-value">{capturedData.age}</div>
+//       </div>
+//       <div className="result-card">
+//         <div className="result-label">Gender</div>
+//         <div className="result-value">{capturedData.gender}</div>
+//       </div>
+//       <div className="result-card">
+//         <div className="result-label">Emotion</div>
+//         <div className="result-value">{capturedData.emotion}</div>
+//       </div>
+//       <div className="result-card">
+//         <div className="result-label">Timestamp</div>
+//         <div className="result-value">{capturedData.timestamp}</div>
+//       </div>
+
+//       {/* Add the Song Recommendation Component */}
+//       <div className="song-recommendation-section">
+//         <h4 className="recommendation-title">AI MUSIC SUGGESTIONS</h4>
+//         <SongRecommendation 
+//           age={capturedData.age}
+//           gender={capturedData.gender}
+//           emotion={capturedData.emotion}
+//         />
+//       </div>
+      
+//       <button 
+//         className="clear-button"
+//         onClick={() => setCapturedData(null)}
+//       >
+//         Clear Results
+//       </button>
+//     </div>
+//   ) : (
+//     <div className="empty-results">
+//       No capture results yet. Click "Capture" to analyze current frame.
+//     </div>
+//   )}
+// </div>
+//     </div>
+//   );
+// };
+
+// export default FaceDetection;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 import { useState, useRef, useEffect } from 'react';
 import * as faceapi from 'face-api.js';
 import SongRecommendation from './SongRecommendation';
@@ -1187,10 +1448,9 @@ const FaceDetection = ({ onClose }) => {
     };
 
     const startVideo = () => {
-      navigator.mediaDevices.getUserMedia({ video: true })
+      navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } })
         .then(stream => {
           videoRef.current.srcObject = stream;
-          // Simulate loading progress
           const interval = setInterval(() => {
             setScanProgress(prev => (prev >= 100 ? 100 : prev + 10));
             if (scanProgress >= 100) clearInterval(interval);
@@ -1223,7 +1483,6 @@ const FaceDetection = ({ onClose }) => {
       const ctx = canvas.getContext('2d');
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       
-      // Draw detections with custom styling
       faceapi.draw.drawDetections(canvas, resizedDetections, {
         lineWidth: 2,
         boxColor: '#00ffff',
@@ -1267,7 +1526,7 @@ const FaceDetection = ({ onClose }) => {
 
   return (
     <div className="face-detection-container">
-      {/* Left Panel - Camera Feed */}
+      {/* Camera Panel - Top on mobile */}
       <div className="camera-panel">
         <div className="video-container">
           <video 
@@ -1275,6 +1534,7 @@ const FaceDetection = ({ onClose }) => {
             className="video-feed"
             autoPlay 
             muted
+            playsInline
           />
           <canvas 
             ref={canvasRef} 
@@ -1309,8 +1569,8 @@ const FaceDetection = ({ onClose }) => {
         </div>
       </div>
       
-      {/* Right Panel - Results */}
-      {/* <div className="results-panel">
+      {/* Results Panel - Bottom on mobile */}
+      <div className="results-panel">
         <h3 className="results-title">CAPTURE RESULTS</h3>
         
         {capturedData ? (
@@ -1331,6 +1591,15 @@ const FaceDetection = ({ onClose }) => {
               <div className="result-label">Timestamp</div>
               <div className="result-value">{capturedData.timestamp}</div>
             </div>
+
+            <div className="song-recommendation-section">
+              <h4 className="recommendation-title">AI MUSIC SUGGESTIONS</h4>
+              <SongRecommendation 
+                age={capturedData.age}
+                gender={capturedData.gender}
+                emotion={capturedData.emotion}
+              />
+            </div>
             
             <button 
               className="clear-button"
@@ -1344,55 +1613,7 @@ const FaceDetection = ({ onClose }) => {
             No capture results yet. Click "Capture" to analyze current frame.
           </div>
         )}
-      </div> */}
-
-
-<div className="results-panel">
-  <h3 className="results-title">CAPTURE RESULTS</h3>
-  
-  {capturedData ? (
-    <div className="results-container">
-      {/* Existing Results Cards */}
-      <div className="result-card">
-        <div className="result-label">Age</div>
-        <div className="result-value">{capturedData.age}</div>
       </div>
-      <div className="result-card">
-        <div className="result-label">Gender</div>
-        <div className="result-value">{capturedData.gender}</div>
-      </div>
-      <div className="result-card">
-        <div className="result-label">Emotion</div>
-        <div className="result-value">{capturedData.emotion}</div>
-      </div>
-      <div className="result-card">
-        <div className="result-label">Timestamp</div>
-        <div className="result-value">{capturedData.timestamp}</div>
-      </div>
-
-      {/* Add the Song Recommendation Component */}
-      <div className="song-recommendation-section">
-        <h4 className="recommendation-title">AI MUSIC SUGGESTIONS</h4>
-        <SongRecommendation 
-          age={capturedData.age}
-          gender={capturedData.gender}
-          emotion={capturedData.emotion}
-        />
-      </div>
-      
-      <button 
-        className="clear-button"
-        onClick={() => setCapturedData(null)}
-      >
-        Clear Results
-      </button>
-    </div>
-  ) : (
-    <div className="empty-results">
-      No capture results yet. Click "Capture" to analyze current frame.
-    </div>
-  )}
-</div>
     </div>
   );
 };
